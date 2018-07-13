@@ -6,7 +6,7 @@ All codes of project in wysdom-test folder. It is root folder.
 
 2. Open the terminal, From the root folder, Run the app: 
    java -jar build/libs/wysdom-test-0.0.1-SNAPSHOT.jar worldcup julie
-   (Note: world+cup julie are search key, you can enter multiple search keys, please use space to split them)
+   (Note: worldcup julie are search key, you can enter multiple search keys, please use space to split them)
    
    or from the root folder using springBoot: ./gradlew bootRun
    
