@@ -23,11 +23,6 @@ All codes of project in wysdom-test folder. It is root folder.
    http://localhost:8080/rest/v1/searchWikipedia/worldcup*julie*kids*zara*club 
    
    or
-   access below url from web browser
-   
-   http://localhost:8080/rest/v1/searchWikipedia/worldcup*julie*kids*zara*club
-   
-   or
    
    curl http://localhost:8080/rest/v1/searchWikipedia/worldcup*julie*kids*zara*club |json_pp
    
