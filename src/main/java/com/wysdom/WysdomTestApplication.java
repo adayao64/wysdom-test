@@ -30,6 +30,7 @@ public class WysdomTestApplication {
 						List<WikipediaInfo> resultInfoList = wysdomAIService.findInfoFromWikipedia(searchKey);
 						for (int j = 0; j < resultInfoList.size(); j++) {
 							LOGGER.info(resultInfoList.get(j).getTitle() + "||" + resultInfoList.get(j).getUrl());
+							System.out.println("search results+"+j+"==>"+resultInfoList.get(j).getTitle() + "||" + resultInfoList.get(j).getUrl());
 						}
 
 					} catch (Exception e) {

@@ -27,12 +27,10 @@ public class WysdomTestController {
 	@Autowired
 	WysdomAIService wysdomAIService;
 
-	ExecutorService SEARCH_EXECUTOR_THREAD = Executors.newCachedThreadPool();
-	CompletionService<List<WikipediaInfo>> completion = new ExecutorCompletionService<>(SEARCH_EXECUTOR_THREAD);
-
 	@RequestMapping(path = "/searchWikipedia/{allSearchKey}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<?> search(@PathVariable("allSearchKey") String allSearchKey) {
 		LOGGER.info("WysdomTestController starting search->Begin");
+		
 		List<WikipediaInfo> searchWikipediaList = new ArrayList<WikipediaInfo>();
 
 		String[] keyParam = allSearchKey.split("\\*");
@@ -40,27 +38,18 @@ public class WysdomTestController {
 			for (int i = 0; i < keyParam.length; i++) {
 
 				String searchKey = keyParam[i];
-				Runnable searchWikipediaThread = () -> {
-					try {
+				 try {
 						List<WikipediaInfo> resultInfoList = wysdomAIService.findInfoFromWikipedia(searchKey);
 						searchWikipediaList.addAll(resultInfoList);
 
 					} catch (Exception e) {
-						e.printStackTrace();
+						LOGGER.error("Error happened in single search:", e);
 					}
-
-				};
-
-				// Submitting this Runnable class to the executor
-				completion.submit(searchWikipediaThread, searchWikipediaList);
+				
 			}
-			try {
-				completion.take();
-			} catch (InterruptedException e) {
-				LOGGER.error("Error happened in search:", e);
-			}
-			SEARCH_EXECUTOR_THREAD.shutdown();
+			
 		}
+		
 		LOGGER.info("WysdomTestController starting search->End");
 		if (searchWikipediaList.isEmpty()) {
 			return new ResponseEntity<List<WikipediaInfo>>(HttpStatus.NO_CONTENT);
